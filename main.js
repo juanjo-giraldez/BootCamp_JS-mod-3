@@ -4,30 +4,40 @@ const empleado = {
   pagas: 12,
 };
 
-let rangoSalario;
+const getSalaryRange = (item) => {
+  let rangeSalary;
+  switch (true) {
+    case item.bruto < 12000:
+      rangeSalary = 0;
+      break;
+    case item.bruto < 24000:
+      rangeSalary = 0.08;
+      break;
+    case item.bruto < 34000:
+      rangeSalary = 0.16;
+      break;
+    default:
+      rangeSalary = 0.3;
+      break;
+  }
+  return rangeSalary;
+};
 
-switch (true) {
-  case empleado.bruto < 12000:
-    rangoSalario = 0;
-    break;
-  case empleado.bruto < 24000:
-    rangoSalario = 0.08;
-    break;
-  case empleado.bruto < 34000:
-    rangoSalario = 0.16;
-    break;
-  default:
-    rangoSalario = 0.3;
-    break;
-}
+const getRetentionTotal = (item) => {
+  return item.hijos > 0 ? getSalaryRange(item) - 0.02 : getSalaryRange(item);
+};
 
-const retencion = empleado.hijos > 0 ? rangoSalario - 0.02 : rangoSalario;
-const resultadoRetencion = empleado.bruto * retencion;
-const netoAnual = empleado.bruto - resultadoRetencion;
-const netoMensual = empleado.pagas > 12 ? netoAnual / 14 : netoAnual / 12;
 
-console.log("rango Salario", rangoSalario);
-console.log("rango retencion", retencion);
-console.log("resultado Retencion", resultadoRetencion);
-console.log("netoAnual", netoAnual);
-console.log("netoAnual", netoMensual);
+const getNominationMonth = (item) => {
+
+  const annualNet = item.bruto -  getRetentionTotal(item) * item.bruto
+
+  // const annualNet = item.bruto / item.pagas * getRetentionTotal(item);
+
+  return item.pagas > 12 ? annualNet / 14 : annualNet / 12;
+};
+
+console.log("Salary range", getSalaryRange(empleado)+ "%");
+console.log("Retention", getRetentionTotal(empleado)+ "%");
+console.log("Nomination:", getNominationMonth(empleado) + "€");
+
