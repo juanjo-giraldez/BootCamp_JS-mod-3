@@ -27,17 +27,12 @@ const getRetentionTotal = (item) => {
   return item.hijos > 0 ? getSalaryRange(item) - 0.02 : getSalaryRange(item);
 };
 
-
 const getNominationMonth = (item) => {
-
-  const annualNet = item.bruto -  getRetentionTotal(item) * item.bruto
-
-  // const annualNet = item.bruto / item.pagas * getRetentionTotal(item);
+  const annualNet = item.bruto - getRetentionTotal(item) * item.bruto;
 
   return item.pagas > 12 ? annualNet / 14 : annualNet / 12;
 };
 
-console.log("Salary range", getSalaryRange(empleado)+ "%");
-console.log("Retention", getRetentionTotal(empleado)+ "%");
+console.log("Salary range", getSalaryRange(empleado) + "%");
+console.log("Retention", getRetentionTotal(empleado) + "%");
 console.log("Nomination:", getNominationMonth(empleado) + "€");
-
