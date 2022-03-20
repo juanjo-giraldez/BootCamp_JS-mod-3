@@ -1,33 +1,33 @@
-const product = { count: 3, price: 12.55, type: "ropa" };
+const empleado = {
+  bruto: 28000,
+  hijos: 2,
+  pagas: 12,
+};
 
-let priceItem;
+let rangoSalario;
 
-valueProduct = product.count <= 0 ? 0 : product.price * product.count;
-
-console.log("priceItem", valueProduct);
-
-let iva;
-
-// if (product.type === "alimentacion") {
-//   iva = valueProduct * 0.1;
-// } else if (product.type === "libro") {
-//   iva = valueProduct * 0.04;
-// } else {
-//   iva = valueProduct * 0.21;
-// }
-
-switch (product.type) {
-  case "alimentacion":
-    iva = valueProduct * 0.1;
+switch (true) {
+  case empleado.bruto < 12000:
+    rangoSalario = 0;
     break;
-  case "libro":
-    iva = valueProduct * 0.04;
+  case empleado.bruto < 24000:
+    rangoSalario = 0.08;
+    break;
+  case empleado.bruto < 34000:
+    rangoSalario = 0.16;
     break;
   default:
-    iva = valueProduct * 0.21;
+    rangoSalario = 0.3;
     break;
 }
 
-const priceTotal = iva + valueProduct;
+const retencion = empleado.hijos > 0 ? rangoSalario - 0.02 : rangoSalario;
+const resultadoRetencion = empleado.bruto * retencion;
+const netoAnual = empleado.bruto - resultadoRetencion;
+const netoMensual = empleado.pagas > 12 ? netoAnual / 14 : netoAnual / 12;
 
-console.log("priceWithIva", priceTotal);
+console.log("rango Salario", rangoSalario);
+console.log("rango retencion", retencion);
+console.log("resultado Retencion", resultadoRetencion);
+console.log("netoAnual", netoAnual);
+console.log("netoAnual", netoMensual);
